@@ -1,0 +1,66 @@
+_target_: cdvae.pl_modules.model.CDVAE
+
+useoriginal: false
+use_composition_constraint: true
+use_diffraction_loss: false
+concat_peak_intensities: false
+concat_elemental_composition: false
+max_num_atoms: ${max_num_atoms}
+use_psuedo_voigt: true
+variational_latent_space: false
+in_dim: 8500
+noise_sd: ${data.noise_sd}
+apply_conv_to_peak_loc_int: false
+use_weight_initialization: true
+use_composition_module: false
+include_stoichiometric_information: false
+
+### START : OLD PARAMETERS (NOT IN DEVELOPMENT) 
+use_cond_kld: false
+number_of_conditionals: 3
+predict_diffraction_pattern: false
+encode_diffraction_pattern: false
+diffraction_encoder_num_layers: 1
+diffraction_encoder_hidden_dim: 256
+diffraction_convolution: false
+use_discrete_simulated_xrd: false
+type_fixing: false
+dropout_rate: 0
+decoder_dropout: 0
+use_differentiable_diffraction_loss: false
+differentiable_diffraction_weight: 0
+
+wavelength : 1.5406
+q_max :  8
+q_min : 0.5
+num_steps : 200
+
+hidden_dim: 256
+latent_dim: 256
+fc_num_layers: 1
+max_atoms: ${data.max_atoms}
+cost_natom: 1.
+cost_coord: 10.
+cost_type: 1.
+cost_lattice: 10.
+cost_composition: 1.
+cost_edge: 10.
+cost_property: 1.
+cost_diffraction: 1.
+beta: 0.01 #originally 0.01, #modified by Tsach for the conditional model
+teacher_forcing_lattice: true
+teacher_forcing_max_epoch: ${data.teacher_forcing_max_epoch}
+max_neighbors: 20  # maximum number of neighbors for OTF graph bulding in decoder
+radius: 7.  # maximum search radius for OTF graph building in decoder
+sigma_begin: 10.
+sigma_end: 0.01
+type_sigma_begin: 5.
+type_sigma_end: 0.01
+num_noise_level: 50
+predict_property: False
+
+### END : OLD PARAMETERS (NOT IN DEVELOPMENT) 
+
+defaults:
+  - encoder: dimenet
+  - decoder: gemnet
